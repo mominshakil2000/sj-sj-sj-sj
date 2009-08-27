@@ -1,0 +1,199 @@
+BODY {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	background : #E5B199;
+	table-layout : auto;
+	background-image: url(../Images/Common/BackGround.gif);
+	background-repeat: no-repeat;
+}
+
+A:ACTIVE, A:LINK, A:VISITED {
+	font-size: 12px;
+	color: #000000;
+}
+
+A:HOVER {
+	font-size: 12px;
+	color : #000000;
+}
+.APPLICATION_H1{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	color : #FFFFFF;
+	font-size: 24px;
+}
+.APPLICATION_H2{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	color : #FFFFFF;
+	font-size: 18px;
+}
+
+.ALERT {
+	font-size: 12px;
+	color : #FF0000;
+}
+.WARNING {
+	font-size: 12px;
+	color : #FF0000;
+}
+
+.MANDATORY{
+	font-size: 12px;
+	color : #FF0000;
+	font-style: italic;
+}
+.BOX_OUTER{
+	border-width: 1px;
+	border-color: #736356;
+	border-style: solid;
+	border-collapse: collapse;
+  padding: 0px 0px 0px 5px;
+
+}
+
+.BOX{
+	border-width: 1px;
+	border-color: #736356;
+	border-style: solid;
+	border-collapse: collapse;
+    padding: 10px 5px 5px 5px;
+	background : #EDE7D1;
+}
+.LINE_BOTTOM_SINGLE{
+	border-bottom-width : 1px;
+	border-bottom-color: Black;
+	border-bottom-style: solid;
+}
+.LINE_TOP_SINGLE{
+	border-top-width : 1px;
+	border-top-color: Black;
+	border-top-style: solid;
+}
+
+.FORM_AREA{
+	padding: 0px 0px 0px 0px;
+	font-size: 12px;
+	border : 0px;
+}
+
+.FORM_TITLE_LEFT{
+  padding: 0px 0px 0px 0px;
+	width : 6px;
+	height: 21px;
+	vertical-align : middle;
+	background-image: url(../Images/Common/FormTitleBGLeft.gif);
+	background-repeat: no-repeat;
+}
+
+.FORM_TITLE_MIDDLE{
+	font-size: 14px;
+	width : 200px;
+	vertical-align : middle;
+	height: 21px;
+	color: #FFFFFF;
+	background-image: url(../Images/Common/FormTitleBGMiddle.gif);
+}
+.FORM_TITLE_RIGHT{
+	background-image: url(../Images/Common/FormTitleBGRight.gif);
+	width : 20px;
+	height: 21px;
+	vertical-align : middle;
+	background-repeat: no-repeat;
+}
+.FORM_TITLE_LINE{
+	height: 21px;
+	vertical-align : middle;
+	background-image: url(../Images/Common/FormTitleBGLine.gif);
+}
+
+.FORM_CAPTION {
+	font-size: 12px;
+	vertical-align: top;
+	color: #FFFFFF;
+	background : #0B5C89;
+}
+
+.FORM_CONTROL{
+	font-size: 12px;
+	vertical-align: top;
+	color: #000000;
+}
+.MENU_BAR{
+	color: #FFFFFF;
+	background : #0B5C89;
+	border: 1px;
+	border-style: solid;
+	border-color: #9DBDBC;
+}
+.FORM_CONTROL_DISABLE{
+	vertical-align: top;
+	color: gray;
+}
+textarea.FORM_CONTROL_DISABLE {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: Gray;
+	border: 1px;
+	border-style: solid;
+	border-color: Gray;
+}
+input.FORM_CONTROL_DISABLE {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: Gray;
+	border: 1px;
+	border-style: solid;
+	border-color: Gray;
+}
+select.FORM_CONTROL_DISABLE{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: Gray;
+	border: 1px;
+	border-style: solid;
+	border-color: Gray;
+}
+textarea {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	border: 1px;
+	border-style: solid;
+	border-color: #0B5C89;
+}
+input {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	border: 1px;
+	border-style: solid;
+	border-color: #0B5C89;
+\\	text-align: right;
+}
+select{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	border: 1px;
+	border-style: solid;
+	border-color: #0B5C89;
+}
+.LIST_AREA{
+	padding: 0px 0px 0px 0px;
+	font-size: 12px;
+	border : 0px;
+}
+
+.LIST_HEADER {
+	vertical-align: top;
+	color: #FFFFFF;
+	background-color: #0B5C89;
+}
+.LIST_DATA {
+	font-size: 12px;
+	vertical-align: top;
+	color: #000000;
+	background-color: #B9D3E2;
+}
+.HIGHLIGHT_DATA{ 
+	font-size: 12px;
+	vertical-align: top;
+	color: #000000;
+	background-color: #E5B199;
+}

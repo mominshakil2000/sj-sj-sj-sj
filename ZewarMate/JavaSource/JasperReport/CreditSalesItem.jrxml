@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="CreditSalesItem"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="581"
+		 pageHeight="842"
+		 columnWidth="581"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="BOX"
+		isDefault="false"
+		border="Thin"
+		topBorder="Thin"
+		bottomBorder="Thin"
+		fontSize="22"
+		isBold="true"
+		isItalic="true"
+		pdfFontName="Helvetica-BoldOblique"
+	/>
+
+	<parameter name="CRITERIA_SALES_INVOICE_ID" isForPrompting="false" class="java.lang.Long">
+		<defaultValueExpression ><![CDATA[Long.getLong("1")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CRITERIA_ITEM_ID" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT
+	II.SALES_INVOICE_ITEM_ID,
+	II.JEWELLERY_ITEM_ID,
+	IT.ITEM_NAME
+FROM
+	sales_invoice_items AS II,
+	items AS IT
+
+WHERE 	II.JEWELLERY_ITEM_ID = IT.ITEM_ID
+AND II.SALES_INVOICE_ID = $P{CRITERIA_SALES_INVOICE_ID}
+]]></queryString>
+
+	<field name="SALES_INVOICE_ITEM_ID" class="java.lang.Long"/>
+	<field name="JEWELLERY_ITEM_ID" class="java.lang.Long"/>
+	<field name="ITEM_NAME" class="java.lang.String"/>
+
+	<variable name="SUM_ITEM_VALUE" class="java.math.BigDecimal" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$V{SUM_ITEM_VALUE}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal("0.0")]]></initialValueExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="12"  isSplitAllowed="true" >
+				<rectangle radius="0" >
+					<reportElement
+						style="BOX"
+						mode="Transparent"
+						x="77"
+						y="0"
+						width="254"
+						height="12"
+						key="rectangle-1"
+						stretchType="RelativeToTallestObject"
+						isPrintWhenDetailOverflows="true"/>
+					<graphicElement stretchType="RelativeToTallestObject" pen="Thin"/>
+				</rectangle>
+				<rectangle radius="0" >
+					<reportElement
+						style="BOX"
+						mode="Transparent"
+						x="331"
+						y="0"
+						width="250"
+						height="12"
+						key="rectangle-2"
+						stretchType="RelativeToTallestObject"
+						isPrintWhenDetailOverflows="true"/>
+					<graphicElement stretchType="RelativeToTallestObject" pen="Thin"/>
+				</rectangle>
+				<subreport  isUsingCache="false">
+					<reportElement
+						style="BOX"
+						mode="Transparent"
+						x="77"
+						y="0"
+						width="254"
+						height="12"
+						forecolor="#EEEEEE"
+						backcolor="#FFFFFF"
+						key="subReportCreditSalesMetal-1"
+						stretchType="RelativeToTallestObject"
+						isPrintRepeatedValues="false"
+						isPrintWhenDetailOverflows="true"/>
+					<subreportParameter  name="SALES_INVOICE_ITEM_ID">
+						<subreportParameterExpression><![CDATA[$F{SALES_INVOICE_ITEM_ID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["/JasperReport/CreditSalesMetal.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="77"
+						height="12"
+						key="textField"
+						stretchType="RelativeToTallestObject"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Courier New" pdfFontName="Courier" size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ITEM_NAME}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="false">
+					<reportElement
+						mode="Transparent"
+						x="331"
+						y="0"
+						width="250"
+						height="12"
+						forecolor="#EEEEEE"
+						backcolor="#FFFFFF"
+						key="subReportCreditSalesMetal-2"
+						stretchType="RelativeToTallestObject"
+						isPrintRepeatedValues="false"
+						isPrintWhenDetailOverflows="true"/>
+					<subreportParameter  name="SALES_INVOICE_ITEM_ID">
+						<subreportParameterExpression><![CDATA[$F{SALES_INVOICE_ITEM_ID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["/JasperReport/CreditSalesGem.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

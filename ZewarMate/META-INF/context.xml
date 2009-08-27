@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context debug="9" docBase="ZewarMate" path="/ZewarMate" reloadable="true" workDir="work\Catalina\localhost\ZewarMate">
+  <Manager className="org.apache.catalina.session.StandardManager" debug="9" maxActive="1" maxInactiveInterval="1800" sessionCounter="1">
+  </Manager>
+  <Resource name="jdbc/ZewarShaikhaJeweller" auth="Container" type="javax.sql.DataSource"
+               maxActive="-1" maxIdle="30" maxWait="10000"
+               username="root" password="pixsense" driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://localhost:3306/zewar?autoReconnect=true"/>
+</Context>

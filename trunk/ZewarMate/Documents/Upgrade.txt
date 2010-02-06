@@ -1,0 +1,99 @@
+DROP TABLE IF EXISTS `inventory_gem_entries` ;
+DROP TABLE IF EXISTS `inventory_gem_entry_purchase_voucher_relation` ;
+DROP TABLE IF EXISTS `inventory_jewellery_entries` ;
+DROP TABLE IF EXISTS `inventory_jewellery_entry_purchase_voucher_relation` ;
+DROP TABLE IF EXISTS `inventory_metal_entries` ;
+DROP TABLE IF EXISTS `inventory_metal_entry_purchase_voucher_relation` ;
+DROP TABLE IF EXISTS `inventory_metal_entry_vendour_stock_voucher_relation` ;
+DROP TABLE IF EXISTS `inventory_purchase_voucher_items` ;
+DROP TABLE IF EXISTS `inventory_purchase_vouchers` ;
+DROP TABLE IF EXISTS `inventory_vendour_stock_voucher_items` ;
+DROP TABLE IF EXISTS `inventory_vendour_stock_vouchers` ;
+
+CREATE TABLE `inventory_gem_entries` (
+  `INVENTORY_GEM_ENTRY_ID` int(11) unsigned NOT NULL auto_increment,
+  `ENTRY_DATE` date NOT NULL default '0000-00-00',
+  `INVENTORY_ACCOUNT_ID` int(11) unsigned NOT NULL default '0',
+  `ITEM_ID` int(3) unsigned NOT NULL default '0',
+  `QUANTITY` int(5) NOT NULL,
+  `WEIGHT` float(8,3) unsigned NOT NULL default '0.000',
+  `IN_OUT_STATUS` char(1) NOT NULL,
+  PRIMARY KEY  (`INVENTORY_GEM_ENTRY_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE `inventory_gem_entry_purchase_voucher_relation` (
+  `INVENTORY_GEM_ENTRY_ID` int(11) unsigned NOT NULL,
+  `INVENTORY_PURCHASE_VOUCHER_ITEM_ID` int(11) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 11264 kB; InnoDB free: 11264 kB; InnoDB free: 1';
+CREATE TABLE `inventory_jewellery_entries` (
+  `INVENTORY_JEWELLERY_ENTRY_ID` int(11) unsigned NOT NULL auto_increment,
+  `ENTRY_DATE` date NOT NULL default '0000-00-00',
+  `INVENTORY_ACCOUNT_ID` int(11) unsigned NOT NULL default '0',
+  `ITEM_ID` int(3) unsigned NOT NULL default '0',
+  `WEIGHT` float(8,3) unsigned NOT NULL default '0.000',
+  `IN_OUT_STATUS` char(1) NOT NULL,
+  PRIMARY KEY  (`INVENTORY_JEWELLERY_ENTRY_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE `inventory_jewellery_entry_purchase_voucher_relation` (
+  `INVENTORY_JEWELLERY_ENTRY_ID` int(11) unsigned NOT NULL,
+  `INVENTORY_PURCHASE_VOUCHER_ITEM_ID` int(11) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 11264 kB; InnoDB free: 11264 kB; InnoDB free: 1';
+CREATE TABLE `inventory_metal_entries` (
+  `INVENTORY_METAL_ENTRY_ID` int(11) unsigned NOT NULL auto_increment,
+  `ENTRY_DATE` date NOT NULL default '0000-00-00',
+  `INVENTORY_ACCOUNT_ID` int(11) unsigned NOT NULL default '0',
+  `ITEM_ID` int(3) unsigned NOT NULL default '0',
+  `WEIGHT` float(8,3) unsigned NOT NULL default '0.000',
+  `IN_OUT_STATUS` char(1) NOT NULL,
+  PRIMARY KEY  (`INVENTORY_METAL_ENTRY_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE `inventory_metal_entry_purchase_voucher_relation` (
+  `INVENTORY_METAL_ENTRY_ID` int(11) unsigned NOT NULL,
+  `INVENTORY_PURCHASE_VOUCHER_ITEM_ID` int(11) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 11264 kB; InnoDB free: 11264 kB; InnoDB free: 1';
+CREATE TABLE `inventory_metal_entry_vendour_stock_voucher_relation` (
+  `INVENTORY_METAL_ENTRY_ID` int(11) unsigned NOT NULL,
+  `INVENTORY_VENDOUR_STOCK_VOUCHER_ITEM_ID` int(11) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 11264 kB; InnoDB free: 11264 kB; InnoDB free: 1';
+CREATE TABLE `inventory_purchase_voucher_items` (
+  `INVENTORY_PURCHASE_VOUCHER_ITEM_ID` int(11) unsigned NOT NULL auto_increment,
+  `INVENTORY_PURCHASE_VOUCHER_ID` int(11) unsigned NOT NULL,
+  `ITEM_ID` int(3) NOT NULL,
+  `WEIGHT` float(8,3) NOT NULL,
+  `WEIGHT_UNIT_ID` int(1) NOT NULL,
+  `QUANTITY` int(4) NOT NULL,
+  `RATE` float(10,2) unsigned NOT NULL,
+  `VALUE_CALCULATE_BY` int(1) NOT NULL,
+  `VALUE` float(10,2) NOT NULL,
+  PRIMARY KEY  (`INVENTORY_PURCHASE_VOUCHER_ITEM_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 3072 kB; InnoDB free: 3072 kB; InnoDB free: 307';
+CREATE TABLE `inventory_purchase_vouchers` (
+  `INVENTORY_PURCHASE_VOUCHER_ID` int(11) unsigned NOT NULL auto_increment,
+  `ENTRY_DATE` date NOT NULL,
+  `VOUCHER_PREFIX` char(2) NOT NULL,
+  `VOUCHER_POSTFIX` int(11) unsigned NOT NULL,
+  `ITEM_GROUP_ID` int(1) unsigned NOT NULL,
+  `INVENTORY_ACCOUNT_ID_DEBIT` int(11) unsigned NOT NULL default '0',
+  `COMMENTS` varchar(255) NOT NULL,
+  PRIMARY KEY  (`INVENTORY_PURCHASE_VOUCHER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 3072 kB; InnoDB free: 3072 kB; InnoDB free: 112';
+CREATE TABLE `inventory_vendour_stock_voucher_items` (
+  `INVENTORY_VENDOUR_STOCK_VOUCHER_ITEM_ID` int(11) unsigned NOT NULL auto_increment,
+  `INVENTORY_VENDOUR_STOCK_VOUCHER_ID` int(11) NOT NULL,
+  `ISSUE_ITEM_ID` int(3) unsigned NOT NULL,
+  `ACTUAL_ITEM_ID` int(3) unsigned NOT NULL,
+  `ISSUE_WEIGHT` float(8,3) unsigned NOT NULL,
+  `ALLOY` float(8,3) unsigned NOT NULL,
+  `ALLOY_WASTAGE_UNIT_ID` int(1) unsigned NOT NULL,
+  `ACTUAL_WEIGHT` float(8,3) unsigned NOT NULL,
+  `COMMENTS` varchar(200) NOT NULL,
+  PRIMARY KEY  (`INVENTORY_VENDOUR_STOCK_VOUCHER_ITEM_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 11264 kB; InnoDB free: 11264 kB; InnoDB free: 1';
+CREATE TABLE `inventory_vendour_stock_vouchers` (
+  `INVENTORY_VENDOUR_STOCK_VOUCHER_ID` int(11) unsigned NOT NULL auto_increment,
+  `ENTRY_DATE` date NOT NULL,
+  `INVENTORY_ACCOUNT_ID_DEBIT` int(11) unsigned NOT NULL,
+  `INVENTORY_ACCOUNT_ID_CREDIT` int(11) unsigned NOT NULL,
+  `VOUCHER_PREFIX` char(2) NOT NULL,
+  `VOUCHER_POSTFIX` int(11) unsigned NOT NULL,
+  PRIMARY KEY  (`INVENTORY_VENDOUR_STOCK_VOUCHER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 11264 kB; InnoDB free: 11264 kB; InnoDB free: 1';

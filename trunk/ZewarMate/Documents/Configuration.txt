@@ -1,0 +1,65 @@
+ System Constants
+--------------------------------------------------------------
+  Account Types
+	  ASSET					2
+	  LIABILITIES				3
+	  CAPITAL				1
+	  REVENUE				5
+	  EXPENSE				4
+ Vouchers Prefix
+	  General Voucher 			JV
+	  Sales Voucher				SV
+	  Purchase Voucher			PV
+	  Cash Payment Voucher			CP
+	  Cash receive Voucher			CR
+ Item Groups    
+	  Metal 				1
+	  Gem 					2
+	  Complete Set	 			3
+ Item Stock Type    
+	  Stock 				1
+	  Customer				2
+  Wastage Units
+	  PERCENTAGE	%			1
+	  RATTI	RAT				2
+  Weight Units
+	  GRAMS					1
+	  CARAT					2
+  Vendor Types
+	  BODY MAKER				1
+	  STONE SETTER				2
+	  ELECTROPLATER				3
+	  STRINGER					4
+	  FITTER					5
+	  POLISHER					6
+  User Roles
+  	  Manager 				
+	  Administrator				
+	  Offficer				
+
+  Sales Order Status
+	  PENDING				1
+	  PROCESS				2
+	  COMPLETE				3
+	  CANCEL				4
+
+  Sales Order Process Status
+	  PROCESS				1
+	  COMPLETE				2
+	  CANCEL				3
+
+  Countries
+	  --					-- 
+-------------------------------------------------------------- 
+  Default Accounts  
+   Control Account for Customers 		CS 000000
+   Control Account for Vendors   		VN 000000
+		       Suppliers       		VN 000111
+   Control Account of  Cash/Bank 		CA 000000
+   Control Account of  Expenses  		EX 000000
+		       Discounts		EX ******
+   Control Account of  Stock			ST 000000
+	 	       Sales			ST 000001
+	 	       Sales Returns 		ST 000002
+	 	       Purchase 		ST 000003
+	 	       Purchase Returns		ST 000004

@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="StockReadyItem"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="CRITERIA_SALES_ORDER_ID" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[new String("0")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CRITERIA_LEDGER_ACCOUNT_ID" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[new String("0")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CRITERIA_ITEM_ID" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[new String("0")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CRITERIA_DATE_FROM" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[new String("2001-01-01")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CRITERIA_DATE_TO" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[new String("2007-01-01")]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT 
+	 SO.SALES_ORDER_ID 
+	,SO.SALES_ORDER_TRACKING_ID
+	,SO.CUSTOMER_LEDGER_ACCOUNT_ID
+	,SO.COMMENTS
+	,LD.TITLE AS ACCOUNT_TITLE
+	,LD.ACCOUNT_CODE_PREFIX
+	,LD.ACCOUNT_CODE_POSTFIX
+	,II.SALES_ORDER_ITEM_ID
+	,II.JEWELLERY_ITEM_ID
+	,IT.ITEM_NAME
+	,0.0 AS TOTAL_ADVANCE_IN_CASH
+	,0.0 AS TOTAL_BILL_AMOUNT
+	,(IFNULL(II.LUMP_SUM_LABOUR_CHARGES,0.0) + IFNULL(LC.GEMS_LABOUR_CHARGES,0.0)) AS TOTAL_MAKING
+FROM sales_orders SO 
+INNER JOIN ledger_accounts LD ON SO.CUSTOMER_LEDGER_ACCOUNT_ID=LD.LEDGER_ACCOUNT_ID
+INNER JOIN 
+(SELECT   OI.SALES_ORDER_ITEM_ID
+		 ,OI.JEWELLERY_ITEM_ID 
+		 ,OII.SALES_ORDER_ID
+		 ,OII.LUMP_SUM_LABOUR_CHARGES
+ FROM 		sales_order_items OI 
+ INNER JOIN sales_order_item_info OII ON OII.SALES_ORDER_ITEM_ID = OI.SALES_ORDER_ITEM_ID
+) II ON SO.SALES_ORDER_ID=II.SALES_ORDER_ID
+INNER JOIN items IT ON II.JEWELLERY_ITEM_ID=IT.ITEM_ID
+LEFT OUTER JOIN 
+(SELECT SALES_ORDER_ID, SUM(IF(GL.ESTIMATED_TOTAL_LABOUR > GL.ACTUAL_TOTAL_LABOUR, GL.ESTIMATED_TOTAL_LABOUR, ACTUAL_TOTAL_LABOUR)) AS GEMS_LABOUR_CHARGES
+ FROM sales_order_processes OP
+ INNER JOIN sales_order_process_gem_labours GL ON OP.SALES_ORDER_PROCESS_ID=GL.SALES_ORDER_PROCESS_ID
+ GROUP BY SALES_ORDER_ID
+ )LC ON LC.SALES_ORDER_ID=SO.SALES_ORDER_ID
+WHERE (FIND_IN_SET(II.JEWELLERY_ITEM_ID, $P{CRITERIA_ITEM_ID})> 0)
+AND    (SO.ORDER_DATE BETWEEN $P{CRITERIA_DATE_FROM} AND $P{CRITERIA_DATE_TO})
+]]></queryString>
+
+	<field name="SALES_ORDER_ID" class="java.lang.Long"/>
+	<field name="SALES_ORDER_TRACKING_ID" class="java.lang.Long"/>
+	<field name="CUSTOMER_LEDGER_ACCOUNT_ID" class="java.lang.Long"/>
+	<field name="COMMENTS" class="java.lang.String"/>
+	<field name="ACCOUNT_TITLE" class="java.lang.String"/>
+	<field name="ACCOUNT_CODE_PREFIX" class="java.lang.String"/>
+	<field name="ACCOUNT_CODE_POSTFIX" class="java.lang.Long"/>
+	<field name="SALES_ORDER_ITEM_ID" class="java.lang.Long"/>
+	<field name="JEWELLERY_ITEM_ID" class="java.lang.Long"/>
+	<field name="ITEM_NAME" class="java.lang.String"/>
+	<field name="TOTAL_ADVANCE_IN_CASH" class="java.math.BigDecimal"/>
+	<field name="TOTAL_BILL_AMOUNT" class="java.math.BigDecimal"/>
+	<field name="TOTAL_MAKING" class="java.lang.Double"/>
+
+	<variable name="SUM_GEM_VALUE" class="java.math.BigDecimal" resetType="Group" resetGroup="SALES_ORDER" calculation="Sum">
+		<initialValueExpression><![CDATA[new BigDecimal(0.0)]]></initialValueExpression>
+	</variable>
+	<variable name="SUM_METAL_VALUE" class="java.math.BigDecimal" resetType="Group" resetGroup="SALES_ORDER" calculation="Sum">
+		<initialValueExpression><![CDATA[new BigDecimal(0.0)]]></initialValueExpression>
+	</variable>
+
+		<group  name="SALES_ORDER" isStartNewPage="true" isReprintHeaderOnEachPage="true" >
+			<groupExpression><![CDATA[$F{SALES_ORDER_ID}]]></groupExpression>
+			<groupHeader>
+			<band height="86"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="18"
+						width="70"
+						height="15"
+						key="staticText-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Customer]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="317"
+						y="1"
+						width="70"
+						height="15"
+						key="staticText-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Print On]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="39"
+						width="155"
+						height="45"
+						key="staticText-5"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Particulars]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="155"
+						y="39"
+						width="120"
+						height="15"
+						key="staticText-6"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Stone]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="275"
+						y="39"
+						width="179"
+						height="15"
+						key="staticText-7"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Metal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="454"
+						y="39"
+						width="81"
+						height="45"
+						key="staticText-8"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Amount]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="155"
+						y="54"
+						width="43"
+						height="30"
+						key="staticText-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Qty]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="198"
+						y="54"
+						width="40"
+						height="30"
+						key="staticText-10"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Weight]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="238"
+						y="54"
+						width="37"
+						height="30"
+						key="staticText-11"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Rate]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="275"
+						y="54"
+						width="43"
+						height="30"
+						key="staticText-12"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Net Weight]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="318"
+						y="54"
+						width="42"
+						height="30"
+						key="staticText-13"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Wastage]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="360"
+						y="54"
+						width="48"
+						height="30"
+						key="staticText-14"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Total Weight]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="408"
+						y="54"
+						width="46"
+						height="30"
+						key="staticText-15"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Rate]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="1"
+						width="124"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="18"
+						width="408"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ACCOUNT_CODE_PREFIX}+" "+ $F{ACCOUNT_CODE_POSTFIX}+" "+$F{ACCOUNT_TITLE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="1"
+						width="70"
+						height="15"
+						key="staticText-22"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Order #]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="2"
+						width="108"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{SALES_ORDER_TRACKING_ID}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="83"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="271"
+						y="13"
+						width="160"
+						height="15"
+						key="staticText-16"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Metal Value]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="271"
+						y="29"
+						width="160"
+						height="15"
+						key="staticText-17"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Stone Value]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="271"
+						y="61"
+						width="160"
+						height="15"
+						key="staticText-18"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Total Bill Amount]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="271"
+						y="45"
+						width="160"
+						height="15"
+						key="staticText-19"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<text><![CDATA[Making]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="431"
+						y="45"
+						width="100"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{TOTAL_MAKING}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="431"
+						y="61"
+						width="100"
+						height="15"
+						key="textField"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{TOTAL_MAKING}.doubleValue()+$V{SUM_GEM_VALUE}.doubleValue()+$V{SUM_METAL_VALUE}.doubleValue())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Group" evaluationGroup="SALES_ORDER"  hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="431"
+						y="13"
+						width="100"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SUM_METAL_VALUE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="431"
+						y="29"
+						width="100"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SUM_GEM_VALUE}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="6"
+						width="535"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch" pen="Thin"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="6"
+						y="12"
+						width="201"
+						height="65"
+						key="textField"
+						stretchType="RelativeToTallestObject"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="1" leftBorder="Thin" leftBorderColor="#000000" leftPadding="1" rightBorder="Thin" rightBorderColor="#000000" rightPadding="1" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="1"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{COMMENTS}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="18"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="171"
+						y="2"
+						width="193"
+						height="14"
+						key="staticText-24"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier" size="10"/>
+					</textElement>
+				<text><![CDATA[Stock Ready Item]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="90"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="535"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Courier"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ITEM_NAME}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="19"
+						width="535"
+						height="25"
+						key="subreport-1"/>
+					<subreportParameter  name="SALES_ORDER_ITEM_ID">
+						<subreportParameterExpression><![CDATA[$F{SALES_ORDER_ITEM_ID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<returnValue subreportVariable="SUM_METAL_VALUE" toVariable="SUM_METAL_VALUE" calculation="Sum"/>
+					<subreportExpression  class="java.lang.String"><![CDATA["/JasperReport/StockReadyItemMetal.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="45"
+						width="535"
+						height="25"
+						key="subreport-2"/>
+					<subreportParameter  name="SALES_ORDER_ITEM_ID">
+						<subreportParameterExpression><![CDATA[$F{SALES_ORDER_ITEM_ID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<returnValue subreportVariable="SUM_GEM_VALUE" toVariable="SUM_GEM_VALUE" calculation="Sum"/>
+					<subreportExpression  class="java.lang.String"><![CDATA["/JasperReport/StockReadyItemGem.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

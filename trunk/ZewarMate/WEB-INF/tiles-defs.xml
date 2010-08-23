@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+<tiles-definitions>
+ <definition name="mainLayout" path="/Templates/Application.jsp">
+  <put name="menu" value="/View/Menu/Menu.jsp"/>
+  <put name="body" value=""/>
+ </definition>
+ <definition name="simpleLayout" path="/Templates/Simple.jsp">
+  <put name="body" value=""/>
+ </definition>
+ 
+ <!-- Tools-->
+ <definition name="TOOLS.ZAKAAT.FORM" extends="mainLayout">
+  <put name="body" value="/View/Accounts/ZakaatCalculatorForm.jsp"/>
+ </definition>
+ 
+ <definition name="TOOL.SYN_CUSTOMER_LEDGER_ACCOUNT" extends="mainLayout">
+  <put name="body" value="/Tools/SynCustomerLedgerAccount.jsp"/>
+ </definition>
+ <definition name="TOOL.SYN_VENDOR_LEDGER_ACCOUNT" extends="mainLayout">
+  <put name="body" value="/Tools/SynVendorLedgerAccount.jsp"/>
+ </definition>
+ <definition name="TOOL.SYN_DATABASE" extends="mainLayout">
+  <put name="body" value="/Tools/SynDatabase.jsp"/>
+ </definition> 
+ <!-- System -->
+ <definition name="SYSTEM.DEFAULT.ERROR" extends="mainLayout">
+  <put name="body" value="/View/System/Error.jsp"/>
+ </definition>
+ 
+ <definition name="SYSTEM.FORM.AUTHENTICATION" extends="simpleLayout">
+  <put name="body" value="/View/System/AuthenticationForm.jsp"/>
+ </definition>
+ <definition name="SYSTEM.SECURITY.ACCESS_DENIED" extends="mainLayout">
+  <put name="body" value="/View/System/AccessDenied.jsp"/>
+ </definition>
+ 
+ <!-- Customers -->
+ <definition name="CUSTOMER.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Customer/CustomerAddForm.jsp"/>
+ </definition>
+ <definition name="CUSTOMER.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Customer/CustomerUpdateForm.jsp"/>
+ </definition>
+ <definition name="CUSTOMER.LIST" extends="mainLayout">
+  <put name="body" value="/View/Customer/CustomerList.jsp"/>
+ </definition>
+
+ <!-- Users -->
+ <definition name="USER.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/User/UserAddForm.jsp"/>
+ </definition>
+ <definition name="USER.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/User/UserUpdateForm.jsp"/>
+ </definition>
+ <definition name="USER.LIST" extends="mainLayout">
+  <put name="body" value="/View/User/UserList.jsp"/>
+ </definition>
+ <definition name="USER.HOME" extends="mainLayout">
+  <put name="body" value="/View/User/UserHome.jsp"/>
+ </definition>
+
+ <!-- Items -->
+ <definition name="ITEM.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Item/ItemAddForm.jsp"/>
+ </definition>
+ <definition name="ITEM.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Item/ItemUpdateForm.jsp"/>
+ </definition>
+ <definition name="ITEM.LIST" extends="mainLayout">
+  <put name="body" value="/View/Item/ItemList.jsp"/>
+ </definition>
+
+  <!-- Items Group -->
+ <definition name="ITEM_GROUP.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Item/ItemGroupAddForm.jsp"/>
+ </definition>
+ <definition name="ITEM_GROUP.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Item/ItemGroupUpdateForm.jsp"/>
+ </definition>
+ <definition name="ITEM_GROUP.LIST" extends="mainLayout">
+  <put name="body" value="/View/Item/ItemGroupList.jsp"/>
+ </definition>
+
+ <!-- Vendor -->
+ <definition name="VENDOR.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Vendor/VendorAddForm.jsp"/>
+ </definition>
+ <definition name="VENDOR.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Vendor/VendorUpdateForm.jsp"/>
+ </definition>
+ <definition name="VENDOR.LIST" extends="mainLayout">
+  <put name="body" value="/View/Vendor/VendorList.jsp"/>
+ </definition>
+  <!-- Vendor Group -->
+ <definition name="VENDOR_GROUP.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Vendor/VendorGroupAddForm.jsp"/>
+ </definition>
+ <definition name="VENDOR_GROUP.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Vendor/VendorGroupUpdateForm.jsp"/>
+ </definition>
+ <definition name="VENDOR_GROUP.LIST" extends="mainLayout">
+  <put name="body" value="/View/Vendor/VendorGroupList.jsp"/>
+ </definition>
+
+ <!-- Ledger Account -->
+ <definition name="LEDGER_ACCOUNT.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Accounts/LedgerAccountAddForm.jsp"/>
+ </definition>
+ <definition name="LEDGER_ACCOUNT.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Accounts/LedgerAccountUpdateForm.jsp"/>
+ </definition>
+ <definition name="LEDGER_ACCOUNT.INDEX" extends="mainLayout">
+  <put name="body" value="/View/Accounts/LedgerAccountList.jsp"/>
+ </definition>
+
+ <!-- Ledger View --> 
+ <definition name="LEDGER.VIEW.CRITERIA" extends="mainLayout">
+  <put name="body" value="/View/Accounts/LedgerViewCriteriaForm.jsp"/>
+ </definition>
+ <definition name="LEDGER.VIEW.RESULT" extends="mainLayout">
+  <put name="body" value="/View/Accounts/LedgerViewResult.jsp"/>
+ </definition>
+
+ <!-- Trial Balance --> 
+ <definition name="LEDGER.TRIAL_BALANCE.VIEW.CRITERIA" extends="mainLayout">
+  <put name="body" value="/View/Accounts/TrialBalanceViewCriteriaForm.jsp"/>
+ </definition>
+ <definition name="LEDGER.TRIAL_BALANCE.VIEW.RESULT" extends="mainLayout">
+  <put name="body" value="/View/Accounts/TrialBalanceViewResult.jsp"/>
+ </definition>
+ 
+ <!-- Income Statement--> 
+ <definition name="LEDGER.INCOME_STATEMENT.VIEW.CRITERIA" extends="mainLayout">
+  <put name="body" value="/View/Accounts/IncomeStatementViewCriteriaForm.jsp"/>
+ </definition>
+ <definition name="LEDGER.INCOME_STATEMENT.VIEW.RESULT" extends="mainLayout">
+  <put name="body" value="/View/Accounts/IncomeStatementViewResult.jsp"/>
+ </definition>
+
+ <!-- Cash Book --> 
+ <definition name="CASH_BOOK.VOUCHER.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Accounts/CashBookVoucherAddForm.jsp"/>
+ </definition>
+ <definition name="CASH_BOOK.VOUCHER.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Accounts/CashBookVoucherUpdateForm.jsp"/>
+ </definition>
+ <definition name="CASH_BOOK.XML.VOUCHER" path="/Templates/XmlData.jsp">
+  <put name="body" value="/View/Accounts/XMLCashBookVoucher.jsp"/>
+ </definition>
+ <definition name="CASH_BOOK.VIEW.CRITERIA" extends="mainLayout">
+  <put name="body" value="/View/Accounts/CashBookViewCriteriaForm.jsp"/>
+ </definition>
+ <definition name="CASH_BOOK.VIEW.RESULT" extends="mainLayout">
+  <put name="body" value="/View/Accounts/CashBookViewResult.jsp"/>
+ </definition>
+ 
+ <!-- Ledger Reports -->
+ <definition name="LEDGER.TRIALBALANCE_RESULT" extends="mainLayout">
+  <put name="body" value="/View/Accounts/TrialBalanceResult.jsp"/>
+ </definition>
+ <definition name="LEDGER.INCOMESTATEMENT_RESULT" extends="mainLayout">
+  <put name="body" value="/View/Accounts/IncomeStatementResult.jsp"/>
+ </definition> 
+
+ <!-- General Journal --> 
+ <definition name="GENERAL_JOURNAL.VOUCHER.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Accounts/GeneralJournalVoucherAddForm.jsp"/> 
+ </definition>
+ <definition name="GENERAL_JOURNAL.VOUCHER.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Accounts/GeneralJournalVoucherUpdateForm.jsp"/> 
+ </definition>
+ <definition name="GENERAL_JOURNAL.XML.VOUCHER" path="/Templates/XmlData.jsp">
+  <put name="body" value="/View/Accounts/XMLGeneralJournalVoucher.jsp"/> 
+ </definition>
+  <definition name="GENERAL_JOURNAL.VIEW.CRITERIA" extends="mainLayout">
+  <put name="body" value="/View/Accounts/GeneralJournalViewCriteriaForm.jsp"/>
+ </definition>
+ <definition name="GENERAL_JOURNAL.VIEW.RESULT" path="/Templates/Report.jsp">
+  <put name="body" value="/View/Accounts/GeneralJournalViewResult.jsp"/>
+ </definition>
+ 
+ 
+ <!-- Sales Order -->
+ <definition name="SALES_ORDER.LIST" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesOrderList.jsp"/> 
+ </definition>
+ <definition name="SALES_ORDER.PROCESS.LIST" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesOrderProcessList.jsp"/> 
+ </definition> 
+ <definition name="SALES_ORDER.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesOrderUpdateForm.jsp"/> 
+ </definition>
+ <definition name="SALES_ORDER.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesOrderAddForm.jsp"/> 
+ </definition>
+ <definition name="SALES_ORDER.REOPEN_FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesOrderReOpenAddForm.jsp"/> 
+ </definition>
+ 
+ <!-- Sales Order Process -->
+ <definition name="SALES_ORDER.PROCESS.LIST" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesOrderProcessList.jsp"/> 
+ </definition>
+ <definition name="SALES_ORDER.PROCESS.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesOrderProcessUpdateForm.jsp"/> 
+ </definition>
+ 
+ <!-- Sales Order Process -->
+ <definition name="SALES_ORDER.PROCESS.LIST" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesOrderProcessList.jsp"/> 
+ </definition>
+
+ <definition name="SALES_ORDER.INVOICE.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesOrderInvoiceAddForm.jsp"/>
+ </definition>
+
+ <definition name="SALES_ORDER.CANCELLATION_RECEIPT.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesOrderCancellationReceiptAddForm.jsp"/>
+ </definition>
+ <!-- Sales Report --> 
+ <definition name="SALES_ORDER.CREDIT_SALES.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Sales/CreditSalesViewCriteria.jsp"/>
+ </definition>
+ <definition name="SALES_ORDER.SALES_INVOICE.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Sales/SalesInvoiceViewCriteria.jsp"/>
+ </definition>
+ <definition name="SALES_ORDER.ORDER_ITEM_ISSUED_SETTING.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Sales/OrderItemIssuedSettingViewCriteria.jsp"/>
+ </definition>
+ <definition name="SALES_ORDER.ORDER_ITEM_RECEIVED_SETTING.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Sales/OrderItemReceivedSettingViewCriteria.jsp"/>
+ </definition>
+
+ <!-- Inventory -->
+ <definition name="INVENTORY.VENDOR_STOCK_VOUCHER.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Inventory/VendorStockVoucherAddForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.VENDOR_STOCK_VOUCHER.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Inventory/VendorStockVoucherUpdateForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.VENDOR_STOCK.XML.VOUCHER" path="/Templates/XmlData.jsp">
+  <put name="body" value="/View/Inventory/XMLVendorStockVoucher.jsp"/> 
+ </definition>
+ <definition name="INVENTORY.VENDOR_STOCK_ISSUE.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Inventory/VendorStockIssueViewCriteria.jsp"/>
+ </definition>
+ <definition name="INVENTORY.VENDOR_STOCK_RETURN.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Inventory/VendorStockReturnViewCriteria.jsp"/>
+ </definition>
+ <definition name="INVENTORY.VENDOR_STOCK_RECEIVED.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Inventory/VendorStockReceivedViewCriteria.jsp"/>
+ </definition>
+ <definition name="INVENTORY.VENDOR_STATEMENT.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Inventory/VendorStatementViewCriteria.jsp"/>
+ </definition> 
+ <definition name="INVENTORY.PURCHASE_VOUCHER_METAL.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Inventory/PurchaseVoucherMetalAddForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.PURCHASE_VOUCHER_METAL.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Inventory/PurchaseVoucherMetalUpdateForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.PURCHASE_VOUCHER_GEM.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Inventory/PurchaseVoucherGemAddForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.PURCHASE_VOUCHER_GEM.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Inventory/PurchaseVoucherGemUpdateForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.PURCHASE_VOUCHER_JEWELLERY.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Inventory/PurchaseVoucherJewelleryAddForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.PURCHASE_VOUCHER_JEWELLERY.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Inventory/PurchaseVoucherJewelleryUpdateForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.PURCHASE.XML.VOUCHER" path="/Templates/XmlData.jsp">
+  <put name="body" value="/View/Inventory/XMLPurchaseVoucher.jsp"/> 
+ </definition>
+ <definition name="INVENTORY.PURCHASE.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Inventory/PurchaseViewCriteria.jsp"/>
+ </definition>
+ <definition name="INVENTORY.STOCK_POSITION.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Inventory/StockPositionViewCriteria.jsp"/>
+ </definition>
+ <definition name="INVENTORY.STOCK_READY_ITEM.REPORT" extends="mainLayout">
+  <put name="body" value="/View/Inventory/StockReadyItemViewCriteria.jsp"/>
+ </definition>
+ <!-- Inventory Sales Voucher -->
+ <definition name="INVENTORY.SALES_VOUCHER_METAL.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Inventory/SalesVoucherMetalAddForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.SALES_VOUCHER_METAL.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Inventory/SalesVoucherMetalUpdateForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.SALES_VOUCHER_GEM.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Inventory/SalesVoucherGemAddForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.SALES_VOUCHER_GEM.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Inventory/SalesVoucherGemUpdateForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.SALES_VOUCHER_JEWELLERY.FORM.ADD" extends="mainLayout">
+  <put name="body" value="/View/Inventory/SalesVoucherJewelleryAddForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.SALES_VOUCHER_JEWELLERY.FORM.UPDATE" extends="mainLayout">
+  <put name="body" value="/View/Inventory/SalesVoucherJewelleryUpdateForm.jsp"/>
+ </definition>
+ <definition name="INVENTORY.SALES.XML.VOUCHER" path="/Templates/XmlData.jsp">
+  <put name="body" value="/View/Inventory/XMLSalesVoucher.jsp"/> 
+ </definition>
+ <definition name="INVENTORY.SALES.JEWELLERY.XML.VOUCHER" path="/Templates/XmlData.jsp">
+  <put name="body" value="/View/Inventory/XMLSalesJewelleryVoucher.jsp"/> 
+ </definition>
+ 
+</tiles-definitions>  

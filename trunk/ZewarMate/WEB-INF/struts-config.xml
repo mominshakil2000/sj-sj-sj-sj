@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="customerForm"
+			type="com.netxs.Zewar.Struts.Form.CustomerForm" />
+		<form-bean name="itemForm"
+			type="com.netxs.Zewar.Struts.Form.ItemForm" />
+		<form-bean name="itemGroupForm"
+			type="com.netxs.Zewar.Struts.Form.ItemGroupForm" />
+		<form-bean name="vendorForm"
+			type="com.netxs.Zewar.Struts.Form.VendorForm" />
+		<form-bean name="vendorGroupForm"
+			type="com.netxs.Zewar.Struts.Form.VendorGroupForm" />
+		<form-bean name="userForm"
+			type="com.netxs.Zewar.Struts.Form.UserForm" />
+		<form-bean name="ledgerAccountForm"
+			type="com.netxs.Zewar.Struts.Form.LedgerAccountForm" />
+		<form-bean name="cashVoucherForm"
+			type="com.netxs.Zewar.Struts.Form.CashVoucherForm" />
+		<form-bean name="generalVoucherForm"
+			type="com.netxs.Zewar.Struts.Form.GeneralVoucherForm" />
+		<form-bean name="salesOrderForm"
+			type="com.netxs.Zewar.Struts.Form.SalesOrderForm" />
+		<form-bean name="salesOrderProcessForm"
+			type="com.netxs.Zewar.Struts.Form.SalesOrderProcessForm" />
+		<form-bean name="processItem"
+			type="com.netxs.Zewar.Struts.Form.SalesOrderProcessItemForm" />
+		<form-bean name="salesOrderInvoiceForm"
+			type="com.netxs.Zewar.Struts.Form.SalesOrderInvoiceForm" />
+		<form-bean name="salesOrderCancellationReceiptForm"
+			type="com.netxs.Zewar.Struts.Form.SalesOrderCancellationReceiptForm" />
+		<form-bean name="salesOrderSearchForm"
+			type="com.netxs.Zewar.Struts.Form.SalesOrderSearchForm" />
+		<form-bean name="inventoryPurchaseVoucherForm"
+			type="com.netxs.Zewar.Struts.Form.InventoryPurchaseVoucherForm" />
+		<form-bean name="inventorySalesVoucherForm"
+			type="com.netxs.Zewar.Struts.Form.InventorySalesVoucherForm" />
+		<form-bean name="inventoryVendorStockVoucherForm"
+			type="com.netxs.Zewar.Struts.Form.InventoryVendorStockVoucherForm" />
+	</form-beans>
+	<global-exceptions />
+	<global-forwards>
+		<forward name="SYSTEM.DEFAULT.ERROR"
+			path="SYSTEM.DEFAULT.ERROR" />
+	</global-forwards>
+	<action-mappings>
+		<!-- System -->
+		<action forward="SYSTEM.SECURITY.ACCESS_DENIED"
+			path="/System/AccessDenied" />
+		<action forward="SYSTEM.FORM.AUTHENTICATION"
+			path="/System/Authenticate" />
+		<!-- Tools -->
+		<action forward="TOOL.SYN_CUSTOMER_LEDGER_ACCOUNT"
+			path="/Tools/SynCustomerLedgerAccount" />
+		<action forward="TOOL.SYN_VENDOR_LEDGER_ACCOUNT"
+			path="/Tools/SynVendorLedgerAccount" />
+		<action forward="TOOL.SYN_DATABASE" path="/Tools/SynDatabase" />
+		<action forward="TOOLS.ZAKAAT.FORM"
+			path="/Tools/ZakaatCalculator" />
+		<!-- Customer -->
+		<action input="CUSTOMER.FORM.ADD" name="customerForm"
+			path="/Customer/CreateProfileInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.CustomerCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/Customer/ListCustomer.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Customer/CreateProfile.do" redirect="true" />
+			<forward name="FAIL" path="CUSTOMER.FORM.ADD" />
+		</action>
+		<action input="CUSTOMER.FORM.ADD" name="customerForm"
+			path="/Customer/CreateProfile" scope="request"
+			type="com.netxs.Zewar.Struts.Action.CustomerCreateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Customer/ListCustomer.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Customer/CreateProfileInit.do" redirect="true" />
+			<forward name="FAIL" path="CUSTOMER.FORM.ADD" />
+		</action>
+		<action input="CUSTOMER.FORM.UPDATE" name="customerForm"
+			path="/Customer/UpdateProfileInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.CustomerUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="CUSTOMER.FORM.UPDATE"
+				redirect="true" />
+			<forward name="FAIL" path="CUSTOMER.FORM.UPDATE" />
+		</action>
+		<action input="CUSTOMER.FORM.UPDATE" name="customerForm"
+			path="/Customer/UpdateProfile" scope="request"
+			type="com.netxs.Zewar.Struts.Action.CustomerUpdateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Customer/ListCustomer.do"
+				redirect="true" />
+			<forward name="FAIL" path="CUSTOMER.FORM.UPDATE" />
+		</action>
+		<action forward="CUSTOMER.LIST" path="/Customer/ListCustomer" />
+		<!-- Items  -->
+		<action input="ITEM.FORM.ADD" name="itemForm"
+			path="/Item/CreateItemInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.ItemCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/Item/ListItem.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Item/CreateItem.do" redirect="true" />
+			<forward name="FAIL" path="ITEM.FORM.ADD" />
+		</action>
+		<action input="ITEM.FORM.ADD" name="itemForm"
+			path="/Item/CreateItem" scope="request"
+			type="com.netxs.Zewar.Struts.Action.ItemCreateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Item/ListItem.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Item/CreateItemInit.do" redirect="true" />
+			<forward name="FAIL" path="ITEM.FORM.ADD" />
+		</action>
+		<action input="ITEM.FORM.UPDATE" name="itemForm"
+			path="/Item/UpdateItemInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.ItemUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="ITEM.FORM.UPDATE" />
+			<forward name="FAIL" path="ITEM.FORM.UPDATE" />
+		</action>
+		<action input="ITEM.FORM.UPDATE" name="itemForm"
+			path="/Item/UpdateItem" scope="request"
+			type="com.netxs.Zewar.Struts.Action.ItemUpdateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Item/ListItem.do"
+				redirect="true" />
+			<forward name="FAIL" path="ITEM.FORM.UPDATE" />
+		</action>
+		<action forward="ITEM.LIST" path="/Item/ListItem" />
+		<!-- Item Groups  -->
+		<action input="ITEM_GROUP.FORM.ADD" name="itemGroupForm"
+			path="/Item/CreateItemGroupInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.ItemGroupCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/Item/ListItemGroup.do"
+				redirect="true" />
+			<forward name="FAIL" path="ITEM_GROUP.FORM.ADD" />
+		</action>
+		<action input="ITEM_GROUP.FORM.ADD" name="itemGroupForm"
+			path="/Item/CreateItemGroup" scope="request"
+			type="com.netxs.Zewar.Struts.Action.ItemGroupCreateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Item/ListItemGroupInit.do"
+				redirect="true" />
+			<forward name="FAIL" path="ITEM_GROUP.FORM.ADD" />
+		</action>
+		<action input="ITEM_GROUP.FORM.UPDATE" name="itemGroupForm"
+			path="/Item/UpdateItemGroupInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.ItemGroupUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="ITEM_GROUP.FORM.UPDATE" />
+			<forward name="FAIL" path="ITEM_GROUP.FORM.UPDATE" />
+		</action>
+		<action input="ITEM_GROUP.FORM.UPDATE" name="itemGroupForm"
+			path="/Item/UpdateItemGroup" scope="request"
+			type="com.netxs.Zewar.Struts.Action.ItemGroupUpdateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Item/ListItemGroup.do"
+				redirect="true" />
+			<forward name="FAIL" path="ITEM_GROUP.FORM.UPDATE" />
+		</action>
+		<action forward="ITEM_GROUP.LIST" path="/Item/ListItemGroup" />
+		<!-- User -->
+		<action input="USER.FORM.ADD" name="userForm"
+			path="/User/CreateProfileInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.UserCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/ListUser.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/User/CreateProfile.do" redirect="true" />
+			<forward name="FAIL" path="USER.FORM.ADD" />
+		</action>
+		<action input="USER.FORM.ADD" name="userForm"
+			path="/User/CreateProfile" scope="request"
+			type="com.netxs.Zewar.Struts.Action.UserCreateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/User/ListUser.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/User/CreateProfileInit.do" redirect="true" />
+			<forward name="FAIL" path="USER.FORM.ADD" />
+		</action>
+		<action input="USER.FORM.UPDATE" name="userForm"
+			path="/User/UpdateProfileInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.UserUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="USER.FORM.UPDATE" />
+			<forward name="FAIL" path="USER.FORM.UPDATE" />
+		</action>
+		<action input="USER.FORM.UPDATE" name="userForm"
+			path="/User/UpdateProfile" scope="request"
+			type="com.netxs.Zewar.Struts.Action.UserUpdateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/User/ListUser.do"
+				redirect="true" />
+			<forward name="FAIL" path="USER.FORM.UPDATE" />
+		</action>
+		<action forward="USER.LIST" path="/User/ListUser" />
+		<action forward="USER.HOME" path="/User/Home" />
+		<!-- Vendors -->
+		<action input="VENDOR.FORM.ADD" name="vendorForm"
+			path="/Vendor/CreateVendorProfileInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.VendorCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/Vendor/ListVendor.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Vendor/CreateVendorProfile.do" redirect="true" />
+			<forward name="FAIL" path="VENDOR.FORM.ADD" />
+		</action>
+		<action input="VENDOR.FORM.ADD" name="vendorForm"
+			path="/Vendor/CreateVendorProfile" scope="request"
+			type="com.netxs.Zewar.Struts.Action.VendorCreateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Vendor/ListVendor.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Vendor/CreateVendorProfileInit.do" redirect="true" />
+			<forward name="FAIL" path="VENDOR.FORM.ADD" />
+		</action>
+		<action input="VENDOR.FORM.UPDATE" name="vendorForm"
+			path="/Vendor/UpdateVendorProfileInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.VendorUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="VENDOR.FORM.UPDATE" />
+			<forward name="FAIL" path="VENDOR.FORM.UPDATE" />
+		</action>
+		<action input="VENDOR.FORM.UPDATE" name="vendorForm"
+			path="/Vendor/UpdateVendorProfile" scope="request"
+			type="com.netxs.Zewar.Struts.Action.VendorUpdateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Vendor/ListVendor.do"
+				redirect="true" />
+			<forward name="FAIL" path="VENDOR.FORM.UPDATE" />
+		</action>
+		<action forward="VENDOR.LIST" path="/Vendor/ListVendor" />
+		<!-- Vendor Groups  -->
+		<action input="VENDOR_GROUP.FORM.ADD" name="vendorGroupForm"
+			path="/Vendor/CreateVendorGroupInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.VendorGroupCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="VENDOR_GROUP.FORM.ADD" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Vendor/CreateVendorGroup.do" redirect="true" />
+			<forward name="FAIL" path="VENDOR_GROUP.FORM.ADD" />
+		</action>
+		<action input="VENDOR_GROUP.FORM.ADD" name="vendorGroupForm"
+			path="/Vendor/CreateVendorGroup" scope="request"
+			type="com.netxs.Zewar.Struts.Action.VendorGroupCreateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Vendor/ListVendorGroup.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Vendor/CreateVendorGroupInit.do" redirect="true" />
+			<forward name="FAIL" path="VENDOR_GROUP.FORM.ADD" />
+		</action>
+		<action input="VENDOR_GROUP.FORM.UPDATE" name="vendorGroupForm"
+			path="/Vendor/UpdateVendorGroupInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.VendorGroupUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="VENDOR_GROUP.FORM.UPDATE" />
+			<forward name="FAIL" path="VENDOR_GROUP.FORM.UPDATE" />
+		</action>
+		<action input="VENDOR_GROUP.FORM.UPDATE" name="vendorGroupForm"
+			path="/Vendor/UpdateVendorGroup" scope="request"
+			type="com.netxs.Zewar.Struts.Action.VendorGroupUpdateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Vendor/ListVendorGroup.do"
+				redirect="true" />
+			<forward name="FAIL" path="VENDOR_GROUP.FORM.UPDATE" />
+		</action>
+		<action forward="VENDOR_GROUP.LIST"
+			path="/Vendor/ListVendorGroup" />
+		<!-- Ledger Account -->
+		<action forward="LEDGER_ACCOUNT.INDEX"
+			path="/Ledger/ListAccount" />
+		<action input="LEDGER_ACCOUNT.FORM.ADD" name="ledgerAccountForm"
+			path="/Ledger/CreateAccountInit" scope="request"
+			type="com.netxs.Zewar.Struts.Action.LedgerAccountCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="LEDGER_ACCOUNT.FORM.ADD" />
+			<forward name="FAIL" path="LEDGER_ACCOUNT.FORM.ADD" />
+		</action>
+		<action input="LEDGER_ACCOUNT.FORM.ADD" name="ledgerAccountForm"
+			path="/Ledger/CreateAccount" scope="request"
+			type="com.netxs.Zewar.Struts.Action.LedgerAccountCreateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Ledger/ListAccount.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Ledger/CreateAccountInit.do" redirect="true" />
+			<forward name="FAIL" path="LEDGER_ACCOUNT.FORM.ADD" />
+		</action>
+		<action input="LEDGER_ACCOUNT.FORM.UPDATE"
+			name="ledgerAccountForm" path="/Ledger/UpdateAccountInit"
+			scope="request"
+			type="com.netxs.Zewar.Struts.Action.LedgerAccountUpdateAction"
+			validate="true">
+			<forward name="SUCCESS" path="LEDGER_ACCOUNT.FORM.UPDATE" />
+			<forward name="FAIL" path="LEDGER_ACCOUNT.FORM.UPDATE" />
+		</action>
+		<action input="LEDGER_ACCOUNT.FORM.UPDATE"
+			name="ledgerAccountForm" path="/Ledger/UpdateAccount" scope="request"
+			type="com.netxs.Zewar.Struts.Action.LedgerAccountUpdateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/Ledger/ListAccount.do"
+				redirect="true" />
+			<forward name="FAIL" path="LEDGER_ACCOUNT.FORM.UPDATE" />
+		</action>
+		<!-- Ledger View -->
+		<action forward="LEDGER.VIEW.CRITERIA"
+			path="/Ledger/ViewCriteria" />
+		<action forward="LEDGER.TRIAL_BALANCE.VIEW.CRITERIA"
+			path="/Ledger/TBViewCriteria" />
+		<action forward="LEDGER.INCOME_STATEMENT.VIEW.CRITERIA"
+			path="/Ledger/ISViewCriteria" />
+		<!-- Cash Book  -->
+		<action input="CASH_BOOK.VOUCHER.FORM.ADD"
+			name="cashVoucherForm" path="/CashBook/CreateVoucher" scope="request"
+			type="com.netxs.Zewar.Struts.Action.CashVoucherCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="CASH_BOOK.VOUCHER.FORM.ADD" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/CashBook/CreateVoucher.do" redirect="true" />
+			<forward name="FAIL" path="CASH_BOOK.VOUCHER.FORM.ADD" />
+		</action>
+		<action input="CASH_BOOK.VOUCHER.FORM.UPDATE"
+			name="cashVoucherForm" path="/CashBook/UpdateVoucher" scope="request"
+			type="com.netxs.Zewar.Struts.Action.CashVoucherUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/Home.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/CashBook/UpdateVoucher.do" redirect="true" />
+			<forward name="FAIL" path="CASH_BOOK.VOUCHER.FORM.UPDATE" />
+		</action>
+		<action forward="CASH_BOOK.XML.VOUCHER"
+			path="/CashBook/XmlVoucher" />
+		<action forward="CASH_BOOK.VIEW.CRITERIA"
+			path="/CashBook/ViewCriteria" />
+		<!-- General Journal -->
+		<action path="/GeneralJournal/CreateVoucher"
+			input="GENERAL_JOURNAL.VOUCHER.FORM.ADD" name="generalVoucherForm"
+			scope="request"
+			type="com.netxs.Zewar.Struts.Action.GeneralVoucherCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/Home.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/GeneralJournal/CreateVoucher.do" redirect="true" />
+			<forward name="FAIL"
+				path="GENERAL_JOURNAL.VOUCHER.FORM.ADD" />
+		</action>
+		<action path="/GeneralJournal/UpdateVoucher"
+			input="GENERAL_JOURNAL.VOUCHER.FORM.UPDATE" name="generalVoucherForm"
+			scope="request"
+			type="com.netxs.Zewar.Struts.Action.GeneralVoucherUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/Home.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/GeneralJournal/UpdateVoucher.do" redirect="true" />
+			<forward name="FAIL"
+				path="GENERAL_JOURNAL.VOUCHER.FORM.UPDATE" />
+		</action>
+		<action forward="GENERAL_JOURNAL.XML.VOUCHER"
+			path="/GeneralJournal/XmlVoucher" />
+		<action forward="GENERAL_JOURNAL.VIEW.CRITERIA"
+			path="/GeneralJournal/ViewCriteria" />
+		<!-- Sales Order -->
+		<action input="SALES_ORDER.CANCELLATION_RECEIPT.FORM.ADD"
+			name="salesOrderCancellationReceiptForm"
+			path="/SalesOrder/CreateCancellationReceipt" scope="request"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderCancellationReceiptCreateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/SalesOrder/ListOrder.do"
+				redirect="false" />
+			<forward name="FAIL"
+				path="SALES_ORDER.CANCELLATION_RECEIPT.FORM.ADD" />
+		</action>
+		<action input="SALES_ORDER.INVOICE.FORM.ADD"
+			name="salesOrderInvoiceForm" path="/SalesOrder/CreateInvoice"
+			scope="request"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderInvoiceCreateAction"
+			validate="true">
+			<forward name="SUCCESS" path="/SalesOrder/ListOrder.do"
+				redirect="true" />
+			<forward name="FAIL" path="SALES_ORDER.INVOICE.FORM.ADD" />
+			<forward name="FAIL_A" path="SALES_ORDER.PROCESS.LIST" />
+		</action>
+		<action input="SALES_ORDER.PROCESS.LIST"
+			path="/SalesOrder/CancelInvoice"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderInvoiceDeleteAction">
+			<forward name="SUCCESS" path="SALES_ORDER.PROCESS.LIST" />
+			<forward name="FAIL" path="SALES_ORDER.PROCESS.LIST" />
+		</action>
+		<action input="SALES_ORDER.PROCESS.LIST"
+			name="salesOrderInvoiceForm" path="/SalesOrder/MoveInInventory"
+			scope="request" validate="false"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderMoveInInventoryAction">
+			<forward name="SUCCESS" path="/SalesOrder/ListOrder.do"
+				redirect="true" />
+			<forward name="FAIL" path="SALES_ORDER.PROCESS.LIST" />
+		</action>
+		<action forward="SALES_ORDER.LIST" path="/SalesOrder/ListOrder" />
+		<action input="SALES_ORDER.LIST" path="/SalesOrder/Search"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderSearchAction">
+			<forward name="SUCCESS" path="SALES_ORDER.LIST" />
+			<forward name="FAIL" path="SALES_ORDER.LIST" />
+		</action>
+		<action input="SALES_ORDER.LIST" name="salesOrderForm"
+			path="/SalesOrder/DeleteOrder" scope="request"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderDeleteAction">
+			<forward name="SUCCESS" path="/SalesOrder/ListOrder.do"
+				redirect="true" />
+			<forward name="FAIL" path="SALES_ORDER.LIST" />
+		</action>
+		<action input="SALES_ORDER.FORM.ADD" name="salesOrderForm"
+			path="/SalesOrder/CreateOrderCart" scope="request"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderCartCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/ListOrder.do"
+				redirect="true" />
+			<forward name="FAIL" path="SALES_ORDER.FORM.ADD" />
+		</action>
+		<action input="SALES_ORDER.FORM.UPDATE" name="salesOrderForm"
+			path="/SalesOrder/UpdateOrder" scope="request"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderCartCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/ListOrder.do"
+				redirect="true" />
+			<forward name="FAIL" path="SALES_ORDER.FORM.UPDATE" />
+		</action>
+		<action input="SALES_ORDER.REOPEN_FORM.ADD"
+			name="salesOrderForm" path="/SalesOrder/CreateOrderReOpen"
+			scope="request"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderReOpenCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/ListOrder.do"
+				redirect="false" />
+			<forward name="FAIL" path="SALES_ORDER.REOPEN_FORM.ADD" />
+		</action>
+		<!-- Sales Order Process-->
+		<action forward="SALES_ORDER.PROCESS.LIST"
+			path="/SalesOrder/ListOrderProcess" />
+		<action forward="SALES_ORDER.PROCESS.LIST"
+			path="/SalesOrder/CreateProcess" />
+		<action input="SALES_ORDER.PROCESS.LIST"
+			path="/SalesOrder/CreateProcess"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessCreateAction">
+			<forward name="SUCCESS" path="SALES_ORDER.PROCESS.LIST" />
+			<forward name="FAIL" path="SALES_ORDER.PROCESS.LIST" />
+		</action>
+		<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/UpdateProcessInit"
+			scope="request"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessUpdateAction"
+			validate="false">
+			<forward name="SUCCESS"
+				path="SALES_ORDER.PROCESS.FORM.UPDATE" />
+			<forward name="FAIL" path="SALES_ORDER.PROCESS.FORM.UPDATE" />
+		</action>
+		<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/UpdateProcess"
+			scope="request"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessUpdateAction"
+			validate="true">
+			<forward name="SUCCESS"
+				path="SALES_ORDER.PROCESS.FORM.UPDATE" redirect="true" />
+			<forward name="FAIL" path="SALES_ORDER.PROCESS.FORM.UPDATE" />
+		</action>
+		<action input="SALES_ORDER.PROCESS.LIST"
+			path="/SalesOrder/DeleteProcessCart"
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessDeleteAction">
+			<forward name="SUCCESS" path="SALES_ORDER.PROCESS.LIST" />
+			<forward name="FAIL" path="SALES_ORDER.PROCESS.LIST" />
+		</action>
+		<!--  
+			
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/CreateProcessGemLabour"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessGemLabourCreateAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/DeleteProcessGemLabour"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessGemLabourDeleteAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/CreateProcessGemIssue"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessGemIssueCreateAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/CreateProcessGemReturn"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessGemReturnCreateAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/DeleteProcessGemIssue"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessGemIssueDeleteAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/DeleteProcessGemReturn"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessGemReturnDeleteAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/CreateProcessMetalUsed"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessMetalUsedCreateAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/DeleteProcessMetalUsed"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessMetalUsedDeleteAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			
+			
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/CreateProcessMetalChargeCustomer"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessMetalChargeCustomerCreateAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/DeleteProcessMetalChargeCustomer"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessMetalChargeCustomerDeleteAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			
+			
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/CreateProcessMetalItemUsed"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessMetalItemUsedCreateAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+			<action input="SALES_ORDER.PROCESS.FORM.UPDATE"
+			name="salesOrderProcessForm" path="/SalesOrder/DeleteProcessMetalItemUsed"
+			scope="request" 
+			type="com.netxs.Zewar.Struts.Action.SalesOrderProcessMetalItemUsedDeleteAction" validate="false">
+			<forward name="SUCCESS" path="/SalesOrder/UpdateProcessInit.do" redirect="false"/>
+			<forward name="FAIL"          path="/SalesOrder/UpdateProcessInit.do"/>
+			</action>
+		-->
+		<!-- Inventory -->
+		<action input="INVENTORY.PURCHASE_VOUCHER_METAL.FORM.ADD"
+			name="inventoryPurchaseVoucherForm"
+			path="/Inventory/CreatePurchaseMetalVoucher" scope="request"
+			type="com.netxs.Zewar.Struts.Action.InventoryPurchaseMetalVoucherCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/Home.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Inventory/CreatePurchaseMetalVoucher.do" redirect="true" />
+			<forward name="FAIL"
+				path="INVENTORY.PURCHASE_VOUCHER_METAL.FORM.ADD" />
+		</action>
+		<action input="INVENTORY.PURCHASE_VOUCHER_METAL.FORM.UPDATE"
+			name="inventoryPurchaseVoucherForm"
+			path="/Inventory/UpdatePurchaseMetalVoucher" scope="request"
+			type="com.netxs.Zewar.Struts.Action.InventoryPurchaseMetalVoucherUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/Home.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Inventory/UpdatePurchaseMetalVoucher.do" redirect="true" />
+			<forward name="FAIL"
+				path="INVENTORY.PURCHASE_VOUCHER_METAL.FORM.UPDATE" />
+		</action>
+		<action input="INVENTORY.PURCHASE_VOUCHER_GEM.FORM.ADD"
+			name="inventoryPurchaseVoucherForm"
+			path="/Inventory/CreatePurchaseGemVoucher" scope="request"
+			type="com.netxs.Zewar.Struts.Action.InventoryPurchaseGemVoucherCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/Home.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Inventory/CreatePurchaseGemVoucher.do" redirect="true" />
+			<forward name="FAIL"
+				path="INVENTORY.PURCHASE_VOUCHER_GEM.FORM.ADD" />
+		</action>
+		<action input="INVENTORY.PURCHASE_VOUCHER_GEM.FORM.UPDATE"
+			name="inventoryPurchaseVoucherForm"
+			path="/Inventory/UpdatePurchaseGemVoucher" scope="request"
+			type="com.netxs.Zewar.Struts.Action.InventoryPurchaseGemVoucherUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/Home.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Inventory/UpdatePurchaseGemVoucher.do" redirect="true" />
+			<forward name="FAIL"
+				path="INVENTORY.PURCHASE_VOUCHER_GEM.FORM.UPDATE" />
+		</action>
+		<action input="INVENTORY.PURCHASE_VOUCHER_JEWELLERY.FORM.ADD"
+			name="inventoryPurchaseVoucherForm"
+			path="/Inventory/CreatePurchaseJewelleryVoucher" scope="request"
+			type="com.netxs.Zewar.Struts.Action.InventoryPurchaseJewelleryVoucherCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/Home.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Inventory/CreatePurchaseJewelleryVoucher.do" redirect="true" />
+			<forward name="FAIL"
+				path="INVENTORY.PURCHASE_VOUCHER_JEWELLERY.FORM.ADD" />
+		</action>
+		<action input="INVENTORY.PURCHASE_VOUCHER_JEWELLERY.FORM.UPDATE"
+			name="inventoryPurchaseVoucherForm"
+			path="/Inventory/UpdatePurchaseJewelleryVoucher" scope="request"
+			type="com.netxs.Zewar.Struts.Action.InventoryPurchaseJewelleryVoucherUpdateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/Home.do"
+				redirect="true" />
+			<forward name="SUCCESS_ADD_ANOTHER"
+				path="/Inventory/UpdatePurchaseJewelleryVoucher.do" redirect="true" />
+			<forward name="FAIL"
+				path="INVENTORY.PURCHASE_VOUCHER_JEWELLERY.FORM.UPDATE" />
+		</action>
+		<action input="INVENTORY.VENDOR_STOCK_VOUCHER.FORM.ADD"
+			name="inventoryVendorStockVoucherForm"
+			path="/Inventory/CreateVendorStockVoucher" scope="request"
+			type="com.netxs.Zewar.Struts.Action.InventoryVendorStockVoucherCreateAction"
+			validate="false">
+			<forward name="SUCCESS" path="/User/Home.do"
+				redirect="true" />
+            <forward name="SUCCESS_ADD_ANOTHER" path="/Inventory/CreateVendorStockVoucher.do" redirect="true" />
+            <forward name="FAIL" path="INVENTORY.VENDOR_STOCK_VOUCHER.FORM.ADD" />
+        </action>
+        <action input="INVENTORY.VENDOR_STOCK_VOUCHER.FORM.UPDATE" name="inventoryVendorStockVoucherForm" path="/Inventory/UpdateVendorStockVoucher" scope="request"
+        type="com.netxs.Zewar.Struts.Action.InventoryVendorStockVoucherUpdateAction" validate="false">
+            <forward name="SUCCESS" path="/User/Home.do" redirect="true" />
+            <forward name="SUCCESS_ADD_ANOTHER" path="/Inventory/UpdateVendorStockVoucher.do" redirect="true" />
+            <forward name="FAIL" path="INVENTORY.VENDOR_STOCK_VOUCHER.FORM.UPDATE" />
+        </action>
+<!-- Inventory Sales Voucher-->
+        <action input="INVENTORY.SALES_VOUCHER_METAL.FORM.ADD" name="inventorySalesVoucherForm" path="/Inventory/CreateSalesMetalVoucher" scope="request"
+        type="com.netxs.Zewar.Struts.Action.InventorySalesMetalVoucherCreateAction" validate="false">
+            <forward name="SUCCESS" path="/User/Home.do" redirect="true" />
+            <forward name="SUCCESS_ADD_ANOTHER" path="/Inventory/CreateSalesMetalVoucher.do" redirect="true" />
+            <forward name="FAIL" path="INVENTORY.SALES_VOUCHER_METAL.FORM.ADD" />
+        </action>
+        <action input="INVENTORY.SALES_VOUCHER_METAL.FORM.UPDATE" name="inventorySalesVoucherForm" path="/Inventory/UpdateSalesMetalVoucher" scope="request"
+        type="com.netxs.Zewar.Struts.Action.InventorySalesMetalVoucherUpdateAction" validate="false">
+            <forward name="SUCCESS" path="/User/Home.do" redirect="true" />
+            <forward name="SUCCESS_ADD_ANOTHER" path="/Inventory/UpdateSalesMetalVoucher.do" redirect="true" />
+            <forward name="FAIL" path="INVENTORY.SALES_VOUCHER_METAL.FORM.UPDATE" />
+        </action>
+        <action input="INVENTORY.SALES_VOUCHER_GEM.FORM.ADD" name="inventorySalesVoucherForm" path="/Inventory/CreateSalesGemVoucher" scope="request"
+        type="com.netxs.Zewar.Struts.Action.InventorySalesGemVoucherCreateAction" validate="false">
+            <forward name="SUCCESS" path="/User/Home.do" redirect="true" />
+            <forward name="SUCCESS_ADD_ANOTHER" path="/Inventory/CreateSalesGemVoucher.do" redirect="true" />
+            <forward name="FAIL" path="INVENTORY.SALES_VOUCHER_GEM.FORM.ADD" />
+        </action>
+        <action input="INVENTORY.SALES_VOUCHER_GEM.FORM.UPDATE" name="inventorySalesVoucherForm" path="/Inventory/UpdateSalesGemVoucher" scope="request"
+        type="com.netxs.Zewar.Struts.Action.InventorySalesGemVoucherUpdateAction" validate="false">
+            <forward name="SUCCESS" path="/User/Home.do" redirect="true" />
+            <forward name="SUCCESS_ADD_ANOTHER" path="/Inventory/UpdateSalesGemVoucher.do" redirect="true" />
+            <forward name="FAIL" path="INVENTORY.SALES_VOUCHER_GEM.FORM.UPDATE" />
+        </action>
+        <action input="INVENTORY.SALES_VOUCHER_JEWELLERY.FORM.ADD" name="inventorySalesVoucherForm" path="/Inventory/CreateSalesJewelleryVoucher" scope="request"
+        type="com.netxs.Zewar.Struts.Action.InventorySalesJewelleryVoucherCreateAction" validate="false">
+            <forward name="SUCCESS" path="/User/Home.do" redirect="true" />
+            <forward name="SUCCESS_ADD_ANOTHER" path="/Inventory/CreateSalesJewelleryVoucher.do" redirect="true" />
+            <forward name="FAIL" path="INVENTORY.SALES_VOUCHER_JEWELLERY.FORM.ADD" />
+        </action>
+        <action input="INVENTORY.SALES_VOUCHER_JEWELLERY.FORM.UPDATE" name="inventorySalesVoucherForm" path="/Inventory/UpdateSalesJewelleryVoucher" scope="request"
+        type="com.netxs.Zewar.Struts.Action.InventorySalesJewelleryVoucherUpdateAction" validate="false">
+            <forward name="SUCCESS" path="/User/Home.do" redirect="true" />
+            <forward name="SUCCESS_ADD_ANOTHER" path="/Inventory/UpdateSalesJewelleryVoucher.do" redirect="true" />
+            <forward name="FAIL" path="INVENTORY.SALES_VOUCHER_JEWELLERY.FORM.UPDATE" />
+        </action>
+        <action forward="INVENTORY.SALES.XML.VOUCHER" path="/Inventory/XmlSalesVoucher" />
+        <action forward="INVENTORY.SALES.JEWELLERY.XML.VOUCHER" path="/Inventory/XmlSalesJewelleryVoucher" />
+<!-- Inventory Report -->
+        <action forward="INVENTORY.PURCHASE.REPORT" path="/Inventory/PurchaseReport" />
+        <action forward="INVENTORY.PURCHASE.XML.VOUCHER" path="/Inventory/XmlPurchaseVoucher" />
+        <action forward="INVENTORY.VENDOR_STOCK_ISSUE.REPORT" path="/Inventory/VendorStockIssueReport" />
+        <action forward="INVENTORY.VENDOR_STOCK_RETURN.REPORT" path="/Inventory/VendorStockReturnReport" />
+        <action forward="INVENTORY.VENDOR_STOCK_RECEIVED.REPORT" path="/Inventory/VendorStockReceivedReport" />
+        <action forward="INVENTORY.VENDOR_STATEMENT.REPORT" path="/Inventory/VendorStatementReport" />
+        <action forward="INVENTORY.VENDOR_STOCK.XML.VOUCHER" path="/Inventory/XmlVendorStockVoucher" />
+        <action forward="INVENTORY.STOCK_POSITION.REPORT" path="/Inventory/StockPositionReport" />
+        <action forward="INVENTORY.STOCK_READY_ITEM.REPORT" path="/Inventory/StockReadyItemReport" />
+<!-- Sales Report -->
+        <action forward="SALES_ORDER.CREDIT_SALES.REPORT" path="/SalesOrder/CreditSalesReport" />
+        <action forward="SALES_ORDER.SALES_INVOICE.REPORT" path="/SalesOrder/SalesInvoiceReport" />
+        <action forward="SALES_ORDER.ORDER_ITEM_ISSUED_SETTING.REPORT" path="/SalesOrder/OrderItemIssuedSettingReport" />
+        <action forward="SALES_ORDER.ORDER_ITEM_RECEIVED_SETTING.REPORT" path="/SalesOrder/OrderItemReceivedSettingReport" />
+    </action-mappings>
+    <controller />
+<!-- Message Resource -->
+    <message-resources null="true" parameter="ApplicationResource" />
+<!-- Tiles Configuration -->
+    <plug-in className="org.apache.struts.tiles.TilesPlugin">
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+<!-- Validator Configuration -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames" value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml" />
+    </plug-in>
+</struts-config>

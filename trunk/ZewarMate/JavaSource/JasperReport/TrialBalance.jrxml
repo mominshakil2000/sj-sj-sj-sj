@@ -24,8 +24,14 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="CRITERIA_DATE" isForPrompting="false" class="java.lang.String">
+	<parameter name="CRITERIA_DATE" isForPrompting="true" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["2006-01-01"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CRITERIA_ACCOUNT_FROM" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["AA000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CRITERIA_ACCOUNT_TO" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["ZZ000000"]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT   LA.LEDGER_ACCOUNT_ID
 		,concat(LA.ACCOUNT_CODE_PREFIX, ' ', LPAD(LA.ACCOUNT_CODE_POSTFIX,6,0),' ',LA.TITLE) AS ACCOUNT_TITLE
@@ -52,6 +58,9 @@ LEFT OUTER JOIN
 		  FROM   	LEDGER_ENTRIES 
 	      WHERE   	ENTRY_DATE  BETWEEN DATE_ADD($P{CRITERIA_DATE},INTERVAL -DAY($P{CRITERIA_DATE})+1 DAY) AND LAST_DAY($P{CRITERIA_DATE})
 		  GROUP BY 	LEDGER_ACCOUNT_ID_CREDIT) AS CURRENT_MONTH_CR ON LA.LEDGER_ACCOUNT_ID=CURRENT_MONTH_CR.LEDGER_ACCOUNT_ID_CREDIT 
+WHERE CONCAT(LA.ACCOUNT_CODE_PREFIX,LA.ACCOUNT_CODE_POSTFIX) BETWEEN $P{CRITERIA_ACCOUNT_FROM} AND $P{CRITERIA_ACCOUNT_TO}
+AND ( IFNULL(LAST_MONTH_DR.AMOUNT_DEBIT,0.0) - IFNULL( LAST_MONTH_CR.AMOUNT_CREDIT,0.0) + (OPENING_BALANCE * ENTRY_DEBIT_CREDIT) != 0
+OR   IFNULL(CURRENT_MONTH_DR.AMOUNT_DEBIT,0.0) - IFNULL( CURRENT_MONTH_CR.AMOUNT_CREDIT,0.0) != 0)
 ORDER BY LA.ACCOUNT_CODE_PREFIX, LA.ACCOUNT_CODE_POSTFIX, LA.TITLE]]></queryString>
 
 	<field name="LEDGER_ACCOUNT_ID" class="java.lang.Long"/>

@@ -34,8 +34,8 @@
 
 	Map parameterMap = new HashMap();
 	parameterMap.put("CRITERIA_DATE", request.getParameter("year")+"-"+request.getParameter("month")+"-1"); 
-//	parameterMap.put("CRITERIA_ACCOUNT_FROM", request.getParameter("accountCodeFrom")); 
-//	parameterMap.put("CRITERIA_ACCOUNT_TO", request.getParameter("accountCodeTo")); 
+	parameterMap.put("CRITERIA_ACCOUNT_FROM", request.getParameter("accountCodeFrom")); 
+	parameterMap.put("CRITERIA_ACCOUNT_TO", request.getParameter("accountCodeTo")); 
     
     jasperPrint = JasperFillManager.fillReport(jasperReport, parameterMap, connection);
 //    JasperExportManager.exportReportToPdfFile(jasperPrint, application.getRealPath("/Report/TrialBalance.pdf"));
